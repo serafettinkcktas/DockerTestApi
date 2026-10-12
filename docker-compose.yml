@@ -3,7 +3,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=guclubirsifresectim1!
+      - MSSQL_SA_PASSWORD=mssql2026!
 
   api:
     build:
@@ -11,17 +11,17 @@ services:
       dockerfile: DockerTestApi/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DockerSqlServer=Server=mssql,1433;Database=ApiTestDb;User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=True
+      - ConnectionStrings__DockerSqlServer=Server=mssql,1433;Database=ApiTestDb;User Id=sa;Password=mssql2026!;TrustServerCertificate=True
     restart: on-failure
     ports:
-      - "5000:8080"
+      - "8080:8080"
     depends_on:
       - mssql
 
   frontend:
     image: nginx:alpine
     ports:
-      - "3000:80"
+      - "80:80"
     volumes:
       - ./frontend:/usr/share/nginx/html:ro
     depends_on:

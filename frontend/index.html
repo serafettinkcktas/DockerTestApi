@@ -24,7 +24,7 @@
   <p id="result"></p>
 
   <script>
-    const API = "http://localhost:5000/api/user";
+    const API = "http://localhost:8080/api/user";
 
     async function send(action, body) {
       const res = await fetch(`${API}/${action}`, {
