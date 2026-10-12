@@ -1,0 +1,20 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  api:
+    build:
+      context: "/home/sero/RiderProjects/DockerTestApi"
+      dockerfile: "DockerTestApi/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/DockerTestApi.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "dockertestapi:dev"
+    ports: []
+    volumes:
+    - "/home/sero/RiderProjects/DockerTestApi/DockerTestApi:/app:rw"
+    - "/home/sero/RiderProjects/DockerTestApi:/src:rw"
+    - "/home/sero/.nuget/packages:/home/app/.nuget/packages"
+    working_dir: "/app"

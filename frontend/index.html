@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Kayit</h2>
+  <input id="rAd" placeholder="Ad">
+  <input id="rSoyad" placeholder="Soyad">
+  <input id="rEmail" placeholder="Email">
+  <input id="rPass" type="password" placeholder="Sifre">
+  <button onclick="send('register', {
+    name: rAd.value,
+    surname: rSoyad.value,
+    email: rEmail.value,
+    password: rPass.value
+  })">Kayit Ol</button>
+
+  <h2>Giris</h2>
+  <input id="lEmail" placeholder="Email">
+  <input id="lPass" type="password" placeholder="Sifre">
+  <button onclick="send('login', {
+    email: lEmail.value,
+    password: lPass.value
+  })">Giris Yap</button>
+
+  <p id="result"></p>
+
+  <script>
+    const API = "http://localhost:5000/api/user";
+
+    async function send(action, body) {
+      const res = await fetch(`${API}/${action}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      result.textContent = await res.text();
+    }
+  </script>
+</body>
+</html>
