@@ -1,9 +1,12 @@
 services:
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+  mysql:
+    image: mysql:8
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=mssql2026!
+      MYSQL_DATABASE: TestApiDb
+      MYSQL_ROOT_PASSWORD: cokguclu123!
+    volumes:
+      - mysqldata:/var/lib/mysql
+    restart: always
 
   api:
     build:
@@ -11,12 +14,12 @@ services:
       dockerfile: DockerTestApi/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DockerSqlServer=Server=mssql,1433;Database=ApiTestDb;User Id=sa;Password=mssql2026!;TrustServerCertificate=True
+      - ConnectionStrings__DockerMySql=server=mysql;port=3306;database=TestApiDb;user=root;password=cokguclu123!
     restart: on-failure
     ports:
       - "8080:8080"
     depends_on:
-      - mssql
+      - mysql
 
   frontend:
     image: nginx:alpine
@@ -26,3 +29,6 @@ services:
       - ./frontend:/usr/share/nginx/html:ro
     depends_on:
       - api
+
+volumes:
+  mysqldata:
